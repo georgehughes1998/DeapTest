@@ -40,7 +40,7 @@ pset.renameArguments(ARG1="y")
 
 
 xsize, ysize = 4, 8
-solutions_grid = [[solutions[x*y] for x in range(ysize)] for y in range(xsize)]
+solutions_grid = [[(solutions[x + y*ysize][0], x + y*ysize) for x in range(ysize)] for y in range(xsize)]
 fig, axs = plt.subplots(xsize, ysize)
 
 scale = 16
@@ -59,7 +59,7 @@ for plotx in range(xsize):
                 x, y = (yi / (scale/zoom)) - 1.5, (xi / (scale/zoom)) - 1
                 m[xi, yi] = function(x, y)
         axs[plotx, ploty].imshow(m)
-        # axs[plotx, ploty].set_title(str(score))
+        axs[plotx, ploty].set_title(str(score))
         axs[plotx, ploty].set_xticks([])
         axs[plotx, ploty].set_yticks([])
 
