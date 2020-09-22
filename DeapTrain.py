@@ -1,5 +1,5 @@
 import operator
-import random, math
+import random, math, time
 import multiprocessing
 
 import numpy as np
@@ -88,7 +88,7 @@ mstats.register("max", np.max)
 
 if __name__ == '__main__':
     population_size = 5000
-    iterations = 100
+    iterations = 10
 
     # Multiprocessing
     pool = multiprocessing.Pool()
@@ -101,11 +101,17 @@ if __name__ == '__main__':
     pop = toolbox.population(n=population_size)
     hof = tools.HallOfFame(hof_size)
 
-    pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, iterations, stats=mstats,
-                                       halloffame=hof, verbose=True)
+    # Train loop
+    while True:
+        start_time = time.time()
+        pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, iterations, stats=mstats,
+                                           halloffame=hof, verbose=False)
+        print(log)
 
-    sorted_pop = sorted(pop, key=lambda ind: ind.fitness, reverse=True)
-    results = {str(gp.PrimitiveTree(i)): toolbox.evaluate(i) for i in sorted_pop}
-    with open("solutions.csv", "w") as file:
-        for r in results:
-            file.write(f"{r}; {results[r]}\n")
+        sorted_pop = sorted(pop, key=lambda ind: ind.fitness, reverse=True)
+        results = {str(gp.PrimitiveTree(i)): toolbox.evaluate(i) for i in sorted_pop}
+        with open("solutions.csv", "w") as file:
+            for r in results:
+                file.write(f"{r}; {results[r]}\n")
+
+        print(f"{iterations} iterations completed in {time.time() - start_time}.")
