@@ -87,7 +87,7 @@ mstats.register("max", np.max)
 
 
 if __name__ == '__main__':
-    iterations = 30
+    iterations = 100
 
     # Multiprocessing
     pool = multiprocessing.Pool()
@@ -97,12 +97,18 @@ if __name__ == '__main__':
     hof_size = 2
 
     # Create and evolve population
-    pop = toolbox.population(n=250)
+    pop = toolbox.population(n=1000)
     hof = tools.HallOfFame(hof_size)
 
     # for e in range(1000):
     pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, iterations, stats=mstats,
                                        halloffame=hof, verbose=True)
+
+    sorted_pop = sorted(pop, key=lambda ind: ind.fitness, reverse=True)
+    results = {str(gp.PrimitiveTree(i)): toolbox.evaluate(i) for i in sorted_pop}
+    with open("solutions.csv", "w") as file:
+        for r in results:
+            file.write(f"{r}; {results[r]}\n")
 
         # print()
         #

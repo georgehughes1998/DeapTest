@@ -2,7 +2,7 @@ import numpy as np
 import random
 from realFunc import realFunc
 
-NUM_LINES = 1000
+NUM_LINES = 10000
 XRANGE = -2, 0.5
 YRANGE = -0.5, 0.5
 
