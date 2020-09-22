@@ -87,6 +87,7 @@ mstats.register("max", np.max)
 
 
 if __name__ == '__main__':
+    population_size = 5000
     iterations = 100
 
     # Multiprocessing
@@ -97,10 +98,9 @@ if __name__ == '__main__':
     hof_size = 2
 
     # Create and evolve population
-    pop = toolbox.population(n=1000)
+    pop = toolbox.population(n=population_size)
     hof = tools.HallOfFame(hof_size)
 
-    # for e in range(1000):
     pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, iterations, stats=mstats,
                                        halloffame=hof, verbose=True)
 
@@ -109,27 +109,3 @@ if __name__ == '__main__':
     with open("solutions.csv", "w") as file:
         for r in results:
             file.write(f"{r}; {results[r]}\n")
-
-        # print()
-        #
-        # # Draw image
-        # fig, axs = plt.subplots(3, 2)
-        #
-        # for mi in range(hof_size):
-        #     tree = gp.PrimitiveTree(hof[mi])
-        #     function = gp.compile(tree, pset)
-        #
-        #     m = np.zeros(shape=(256, 256))
-        #     for xi in range(256):
-        #         for yi in range(256):
-        #             x, y = (yi / 128) - 1.5, (xi / 128) - 1
-        #             m[xi, yi] = function(x, y)
-        #     # Display matrix
-        #     i, j = mi % 3, mi // 3
-        #     axs[i, j].imshow(m)
-        #     axs[i, j].set_title(f"({i}, {j})")
-        #     print(f"({i}, {j}): {tree}")
-        #     axs[i, j].set_xticks([])
-        #     axs[i, j].set_yticks([])
-
-        # plt.show()
