@@ -3,7 +3,7 @@ import random, math
 import multiprocessing
 
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 from deap import base, creator, tools, algorithms, gp
 
