@@ -17,9 +17,8 @@ from primitiveFuncs import *
 # f = fs[8]
 
 with open("solutions.csv") as file:
-    solutions = file.read().splitlines()
-f = solutions[0].split(";")[0]
-print(f)
+    solutions = [s.split(";") for s in file.read().splitlines()]
+
 
 pset = gp.PrimitiveSet("main", 2)
 pset.addPrimitive(operator.add, 2)
@@ -39,16 +38,31 @@ pset.addPrimitive(sq, 1)
 pset.renameArguments(ARG0="x")
 pset.renameArguments(ARG1="y")
 
-tree = gp.PrimitiveTree.from_string(f, pset)
-function = gp.compile(tree, pset)
 
-scale = 512
+xsize, ysize = 4, 8
+solutions_grid = [[solutions[x*y] for x in range(ysize)] for y in range(xsize)]
+fig, axs = plt.subplots(xsize, ysize)
+
+scale = 16
 zoom = 2
-m = np.zeros(shape=(scale, scale))
-for xi in range(scale):
-    for yi in range(scale):
-        x, y = (yi / (scale/zoom)) - 1.5, (xi / (scale/zoom)) - 1
-        m[xi, yi] = function(x, y)
-plt.imshow(m)
-plt.imsave("plot.png", m)
+
+for plotx in range(xsize):
+    for ploty in range(ysize):
+        f, score = solutions_grid[plotx][ploty]
+
+        tree = gp.PrimitiveTree.from_string(f, pset)
+        function = gp.compile(tree, pset)
+
+        m = np.zeros(shape=(scale, scale))
+        for xi in range(scale):
+            for yi in range(scale):
+                x, y = (yi / (scale/zoom)) - 1.5, (xi / (scale/zoom)) - 1
+                m[xi, yi] = function(x, y)
+        axs[plotx, ploty].imshow(m)
+        # axs[plotx, ploty].set_title(str(score))
+        axs[plotx, ploty].set_xticks([])
+        axs[plotx, ploty].set_yticks([])
+
+# plt.imsave("plot.png", m)
+
 plt.show()
