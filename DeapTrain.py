@@ -87,8 +87,8 @@ mstats.register("max", np.max)
 
 
 if __name__ == '__main__':
-    population_size = 5000
-    iterations = 10
+    population_size = 2500
+    iterations = 30
 
     # Multiprocessing
     pool = multiprocessing.Pool()
@@ -100,6 +100,10 @@ if __name__ == '__main__':
     # Create and evolve population
     pop = toolbox.population(n=population_size)
     hof = tools.HallOfFame(hof_size)
+
+    # Reset log
+    with open("log.log", "a") as logfile:
+        logfile.write("-"*20 + "\n")
 
     # Train loop
     while True:
