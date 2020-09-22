@@ -63,6 +63,6 @@ for plotx in range(xsize):
         axs[plotx, ploty].set_xticks([])
         axs[plotx, ploty].set_yticks([])
 
-# plt.imsave("plot.png", m)
-
+fig.suptitle("Best Tree GP Solutions")
+plt.savefig("plot.png")
 plt.show()
