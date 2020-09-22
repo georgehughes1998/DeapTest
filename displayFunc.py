@@ -34,7 +34,7 @@ pset.renameArguments(ARG0="x")
 pset.renameArguments(ARG1="y")
 
 
-xsize, ysize = 4, 8
+xsize, ysize = 3, 3
 solutions_grid = [[(solutions[x + y*ysize][0], x + y*ysize) for x in range(ysize)] for y in range(xsize)]
 fig, axs = plt.subplots(xsize, ysize)
 

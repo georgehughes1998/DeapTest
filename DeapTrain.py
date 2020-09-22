@@ -87,7 +87,7 @@ mstats.register("max", np.max)
 
 
 if __name__ == '__main__':
-    population_size = 2500
+    population_size = 500
     iterations = 30
 
     # Multiprocessing
