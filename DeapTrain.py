@@ -106,7 +106,6 @@ if __name__ == '__main__':
         start_time = time.time()
         pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, iterations, stats=mstats,
                                            halloffame=hof, verbose=False)
-        print(log)
 
         sorted_pop = sorted(pop, key=lambda ind: ind.fitness, reverse=True)
         results = {str(gp.PrimitiveTree(i)): toolbox.evaluate(i) for i in sorted_pop}
@@ -114,4 +113,5 @@ if __name__ == '__main__':
             for r in results:
                 file.write(f"{r}; {results[r]}\n")
 
-        print(f"{iterations} iterations completed in {time.time() - start_time}.")
+        with open("log.log", "a") as logfile:
+            logfile.write(f"{iterations} iterations completed and saved in {time.time() - start_time}.\n")
