@@ -88,8 +88,8 @@ mstats.register("min", np.min)
 mstats.register("max", np.max)
 
 if __name__ == '__main__':
-    population_size = 2500
-    iterations = 30
+    population_size = 1000
+    iterations = 8
 
     # Multiprocessing
     pool = multiprocessing.Pool()
