@@ -2,15 +2,16 @@ import numpy as np
 import random
 from realFunc import realFunc
 
-NUM_LINES = 1000
-XRANGE = -2, 0.5
-YRANGE = -0.5, 0.5
+NUM_LINES = 10000
+XRANGE = -3, 3
+YRANGE = -3, 3
 
 with open("out.dat", "w") as file:
     for l in range(NUM_LINES):
-        x, y = random.uniform(*XRANGE), random.uniform(*YRANGE)
-        res = realFunc(x, y)
-        file.write(f"{x}, {y}, {res}\n")
+        # x, y = random.uniform(*XRANGE), random.uniform(*YRANGE)
+        x1, x2 = random.uniform(*XRANGE), random.uniform(*XRANGE)
+        res1, res2 = realFunc(x1, x2)
+        file.write(f"{x1}; {x2}; {res1}; {res2}\n")
 
 
 # with open("out.dat") as file:

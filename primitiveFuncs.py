@@ -1,7 +1,10 @@
 import struct, math
 
 def sq(x):
-    return x**2
+    try:
+        return x**2
+    except OverflowError:
+        return 1000000000000
 
 
 def safe_div(x, y):
